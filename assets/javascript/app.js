@@ -39,19 +39,23 @@ $(document).ready(function() {
 	//button listeners
 	$("body").on("click", "#p1-join", function() {
 		$("#p1-buttons").attr("class", "");
-		$("#p2-join").prop("disabled", true);
+		$("#join-buttons").attr("class", "hidden");
+		$("#user-player").text("You are Player 1");
 	});
 	$("body").on("click", "#p2-join", function() {
 		$("#p2-buttons").attr("class", "");
-		$("#p1-join").prop("disabled", true);
+		$("#join-buttons").attr("class", "hidden");
+		$("#user-player").text("You are Player 2");
 	});
 	$("#p1-buttons").on("click", "button", function() {
+		$(this).attr("class", "btn btn-primary");
 		var selection = $(this).text();
 		database.ref("/selections").update({
 			p1: selection
 		});
 	});
 	$("#p2-buttons").on("click", "button", function() {
+		$(this).attr("class", "btn btn-primary");
 		var selection = $(this).text();
 		database.ref("/selections").update({
 			p2: selection
@@ -84,6 +88,8 @@ $(document).ready(function() {
 			
 			$("#p1-selection").text(snap.child("p1").val());
 			$("#p2-selection").text(snap.child("p2").val());
+
+			$(".btn-primary").attr("class", "btn btn-secondary");
 
 			database.ref("/selections/p1").remove();
 			database.ref("/selections/p2").remove();
